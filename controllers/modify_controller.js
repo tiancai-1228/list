@@ -1,19 +1,85 @@
-module.exports = class Member {};
+const UserList = require("../models/userList_model");
+const Orders = require("../models/order_model");
+const addOrder = require("../models/creatOrder");
+const orderUpdate = require("../models/updateOrder");
+const userUpdate = require("../models/updateUser");
+module.exports = class Member {
+  getUserList(req, res, next) {
+    UserList().then(
+      (result) => {
+        res.json({
+          status: "success",
+          result: result,
+        });
+      },
+      (err) => {
+        res.json({
+          result: err,
+        });
+      }
+    );
+  }
+  getOrders(req, res, next) {
+    Orders().then(
+      (result) => {
+        res.json({
+          status: "success",
+          result: result,
+        });
+      },
+      (err) => {
+        res.json({
+          result: err,
+        });
+      }
+    );
+  }
 
-const onTime = () => {
-  const date = new Date();
-  const mm = date.getMonth() + 1;
-  const dd = date.getDate();
-  const hh = date.getHours();
-  const mi = date.getMinutes();
-  const ss = date.getSeconds();
+  postCreatOrder(req, res, next) {
+    addOrder(req.body.message).then(
+      (result) => {
+        console.log(result, "--");
+        res.json({
+          status: "success",
+        });
+      },
+      (err) => {
+        res.json({
+          result: err,
+        });
+      }
+    );
+  }
 
-  return [
-    date.getFullYear(),
-    "-" + (mm > 9 ? "" : "0") + mm,
-    "-" + (dd > 9 ? "" : "0") + dd,
-    " " + (hh > 9 ? "" : "0") + hh,
-    ":" + (mi > 9 ? "" : "0") + mi,
-    ":" + (ss > 9 ? "" : "0") + ss,
-  ].join("");
+  postUserUpdate(req, res, next) {
+    userUpdate(req.body.orderId, req.body.userId).then(
+      (result) => {
+        console.log(result, "--");
+        res.json({
+          status: "success",
+        });
+      },
+      (err) => {
+        res.json({
+          result: err,
+        });
+      }
+    );
+  }
+
+  postOrderUpdate(req, res, next) {
+    orderUpdate(req.body.orderId, req.body.message).then(
+      (result) => {
+        console.log(result, "--");
+        res.json({
+          status: "success",
+        });
+      },
+      (err) => {
+        res.json({
+          result: err,
+        });
+      }
+    );
+  }
 };
