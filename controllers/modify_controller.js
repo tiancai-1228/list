@@ -20,7 +20,7 @@ module.exports = class Member {
     );
   }
   getOrders(req, res, next) {
-    Orders().then(
+    Orders(req.body.orderId).then(
       (result) => {
         res.json({
           status: "success",
