@@ -38,7 +38,6 @@ module.exports = class Member {
   postCreatOrder(req, res, next) {
     addOrder(req.body.message).then(
       (result) => {
-        console.log(result, "--");
         res.json({
           status: "success",
         });
@@ -54,7 +53,6 @@ module.exports = class Member {
   postUserUpdate(req, res, next) {
     userUpdate(req.body.orderId, req.body.userId).then(
       (result) => {
-        console.log(result, "--");
         res.json({
           status: "success",
         });
@@ -70,7 +68,6 @@ module.exports = class Member {
   postOrderUpdate(req, res, next) {
     orderUpdate(req.body.orderId, req.body.message).then(
       (result) => {
-        console.log(result, "--");
         res.json({
           status: "success",
         });

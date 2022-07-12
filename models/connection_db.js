@@ -8,7 +8,6 @@ const pool = mysqlt.createPool({
 });
 
 var query = function (sql, options, callback) {
-  console.log(sql, "--", options, "--", callback);
   if (typeof options === "function") {
     callback = options;
     options = undefined;
