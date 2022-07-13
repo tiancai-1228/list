@@ -1,8 +1,9 @@
 const UserList = require("../models/userList_model");
 const Orders = require("../models/order_model");
-const addOrder = require("../models/creatOrder");
-const orderUpdate = require("../models/updateOrder");
-const userUpdate = require("../models/updateUser");
+const addOrder = require("../models/creatOrder_model");
+const orderUpdate = require("../models/updateOrder_model");
+const userUpdate = require("../models/updateUser_model");
+const checkOrderId = require("../models/checkOrderId");
 module.exports = class Member {
   getUserList(req, res, next) {
     UserList().then(
@@ -51,18 +52,27 @@ module.exports = class Member {
   }
 
   postUserUpdate(req, res, next) {
-    userUpdate(req.body.orderId, req.body.userId).then(
-      (result) => {
+    checkOrderId(req.body.orderId).then((result) => {
+      if (result.length == req.body.orderId.split(",").length) {
+        userUpdate(req.body.orderId, req.body.userId).then(
+          (result) => {
+            res.json({
+              status: "success",
+            });
+          },
+          (err) => {
+            res.json({
+              result: err,
+            });
+          }
+        );
+      } else {
         res.json({
-          status: "success",
-        });
-      },
-      (err) => {
-        res.json({
-          result: err,
+          status: "error",
+          message: "orderId error",
         });
       }
-    );
+    });
   }
 
   postOrderUpdate(req, res, next) {
