@@ -41,6 +41,7 @@ module.exports = class Member {
       (result) => {
         res.json({
           status: "success",
+          result: result.insertId,
         });
       },
       (err) => {

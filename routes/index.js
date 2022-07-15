@@ -6,7 +6,7 @@ const MemberModifyMethod = require("../controllers/modify_controller");
 memberModifyMethod = new MemberModifyMethod();
 
 router.get("/userlist", memberModifyMethod.getUserList);
-router.get("/orders", memberModifyMethod.getOrders);
+router.post("/orders", memberModifyMethod.getOrders);
 
 router.post("/creatOrder", memberModifyMethod.postCreatOrder);
 
